@@ -14,6 +14,7 @@ private:
 public:
 	TileMap();
 	TileMap(int filas, int columnas, std::string archivo);
+	virtual ~TileMap();
 	Sprite GetTile(int fila,int columna);
 };
 
