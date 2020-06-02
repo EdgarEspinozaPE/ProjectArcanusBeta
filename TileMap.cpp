@@ -40,6 +40,9 @@ TileMap::TileMap() {
 		}
 	}
 }
+
+TileMap::~TileMap() { delete textura; delete Tile; delete Mtile; }
+
 Sprite TileMap::GetTile(int fila,int columna) 
 {
 	switch (*(*(Mtile+fila)+columna)) 
