@@ -4,17 +4,18 @@
 #include<sstream>
 #include<fstream>
 #include"TileMap.h"
-using namespace sf;
+
 class juego
 {
 private:
-	RenderWindow *ventana;
-	CircleShape *shape;
-	Texture * text1;
-	Sprite * spr1;
+	sf::RenderWindow *window;
+	TileMap* Map;
+	sf::Clock sfElapsedTimeClock;
+	float fElapsedTime;
 public:	
-	juego(int ancho, int alto, std::string titulo);
+	juego(int width, int high, std::string title);
 	void gameloop();
-	void dibujar();
+	void draw();
+	void updateElapsedTime();
 };
 

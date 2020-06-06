@@ -4,44 +4,34 @@
 #include<sstream>
 #include<fstream>
 #include"TileMap.h"
-juego::juego(int ancho, int alto, std::string titulo)
+juego::juego(int width, int high, std::string title)
 {
-	ventana = new RenderWindow(VideoMode(ancho, alto), titulo);
-	shape = new CircleShape(100.f);
-	text1 = new Texture;  
-	text1->loadFromFile("Textura2.jpg");
-	spr1 = new Sprite(*text1);
-	shape->setFillColor(Color::Green);
-	
-	
+	window = new sf::RenderWindow(sf::VideoMode(width, high), title);
+	Map = new TileMap(20, 26, "TEXTURAS.jpg"); //El string pasado es la imagen con todas las texturas
 	gameloop();
-	
 }
 void juego::gameloop() 
 {
-	Event sfEvent;
-	while (ventana->isOpen())
+	sf::Event sfEvent;
+	while (window->isOpen())
 	{
-		while (ventana->pollEvent(sfEvent)) { // Handles SFML's events
-			if (sfEvent.type == Event::Closed)
-				ventana->close();
+		updateElapsedTime();
+		while (window->pollEvent(sfEvent)) { // Handles SFML's events
+			if (sfEvent.type == sf::Event::Closed)
+				window->close();
 		}
-		dibujar();
+		draw();
 	}
 }
-void juego::dibujar()
+void juego::draw()
 {
-	ventana->clear();
-	//Construir aqui el map get tile pa reccorrerlo:V
-	TileMap* Mapa;
-	Mapa = new TileMap(20,15,"Textura2.jpg");
-	for (int i = 0;i < 20;i++) 
-	{
-		for (int j = 0;j < 15;j++)
-		{
-			ventana->draw(Mapa->GetTile(i,j));
-		}
-	}
-	
-	ventana->display();
+	window->clear();
+	Map->Displaytilemap(window);
+	window->display();
+}
+void juego::updateElapsedTime() 
+{
+	fElapsedTime = sfElapsedTimeClock.restart().asSeconds();  
+	system("cls");
+	std::cout << fElapsedTime << "---" << 1 / fElapsedTime << "FPS/n";   //Esta parte muestra como van los fps
 }
